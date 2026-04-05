@@ -33,6 +33,45 @@ body {
     overflow-x:hidden;
 }
 
+/* ── MOBILE BANNER ── */
+.mobile-desktop-hint {
+    display: none;
+    background: var(--surface-container-low);
+    border-bottom: 1px solid var(--outline-variant);
+    padding: 12px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--on-surface-variant);
+    text-align: center;
+    letter-spacing: 0.02em;
+    position: relative;
+}
+.mobile-desktop-hint .hint-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 14px;
+}
+.mobile-desktop-hint .hint-dismiss {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--outline);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+}
+.mobile-desktop-hint .hint-dismiss:hover {
+    color: var(--on-surface);
+}
+@media (max-width: 768px) {
+    .mobile-desktop-hint { display: block; }
+}
+
 /* ── NAV ── */
 .top-nav {
     position:sticky; top:0; z-index:100;
@@ -553,6 +592,12 @@ body {
     <a href="/">&larr; Back to Portfolio</a>
     <span class="nav-title">Strategic Roadmap Designer</span>
 </nav>
+
+<!-- MOBILE HINT -->
+<div class="mobile-desktop-hint" id="mobileHint">
+    <span class="hint-icon">&#9881;</span> This interactive tool is optimized for desktop viewing.
+    <button class="hint-dismiss" onclick="document.getElementById('mobileHint').style.display='none'" aria-label="Dismiss">&times;</button>
+</div>
 
 <div class="container">
 
