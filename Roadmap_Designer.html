@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Strategic Roadmap Designer | Alan Wong</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+    --primary: #a43700;
+    --primary-light: #EF6328;
+    --primary-container: #ffdbcf;
+    --secondary: #695e2c;
+    --secondary-container: #efe0a1;
+    --tertiary: #705654;
+    --tertiary-fixed: #fedad8;
+    --surface: #f5fafe;
+    --surface-container-low: #eff4f8;
+    --surface-container: #eaeef2;
+    --surface-container-high: #e4e9ed;
+    --on-surface: #171c1f;
+    --on-surface-variant: #594139;
+    --outline: #8d7167;
+    --outline-variant: #e1bfb4;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--surface);
+    color:var(--on-surface);
+    letter-spacing:0.02em;
+    line-height:1.5;
+    overflow-x:hidden;
+}
+
+/* ── NAV ── */
+.top-nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(245,250,254,0.8);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    box-shadow:0 4px 20px -10px rgba(23,28,31,0.05);
+    padding:16px 40px;
+    display:flex; justify-content:space-between; align-items:center;
+}
+.top-nav a {
+    font-family:'Inter',sans-serif; font-weight:500; font-size:13px;
+    color:var(--primary); text-decoration:none; letter-spacing:0.04em; transition:opacity 0.2s;
+}
+.top-nav a:hover { opacity:0.7; }
+.top-nav .nav-title { font-weight:300; font-size:15px; color:var(--on-surface); }
+
+/* ── CONTAINER ── */
+.container { max-width:1360px; margin:0 auto; padding:32px 40px 80px; }
+
+/* ── PAGE HEADER ── */
+.page-header { margin-bottom:24px; }
+.page-header h1 { font-weight:200; font-size:36px; letter-spacing:-0.01em; margin-bottom:6px; }
+.page-header .subtitle { font-weight:400; font-size:14px; color:var(--on-surface-variant); }
+.page-header .subtitle span { color:var(--primary); font-weight:500; }
+
+/* ── BUILT WITH ── */
+.built-with-strip {
+    display:flex; align-items:center; gap:14px; margin-top:16px;
+    padding:12px 20px; background:var(--surface-container-low);
+    border-radius:10px; box-shadow:inset 0 0 0 1px rgba(225,191,180,0.1); flex-wrap:wrap;
+}
+.built-with-label {
+    font-family:'Inter',sans-serif; font-size:10px; font-weight:600;
+    color:var(--outline); text-transform:uppercase; letter-spacing:0.08em; white-space:nowrap;
+}
+.built-with-items { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+.built-with-item {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:500;
+    color:var(--on-surface-variant); white-space:nowrap; transition:color 0.2s; cursor:default;
+}
+.built-with-item:hover { color:var(--primary); }
+.built-with-item svg { flex-shrink:0; }
+
+/* ── ONBOARDING ── */
+.onboarding {
+    display:flex; gap:4px; margin-bottom:28px;
+    padding:20px 24px; background:white; border-radius:14px;
+    box-shadow:0 2px 12px -4px rgba(23,28,31,0.06);
+}
+.ob-step {
+    flex:1; display:flex; align-items:flex-start; gap:10px;
+    padding:10px 14px; border-radius:10px; transition:background 0.2s;
+}
+.ob-step:hover { background:var(--surface-container-low); }
+.ob-num {
+    width:24px; height:24px; border-radius:50%;
+    background:var(--surface-container-high); color:var(--outline);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:600; flex-shrink:0;
+    margin-top:1px;
+}
+.ob-step.active .ob-num { background:var(--primary); color:white; }
+.ob-text { font-size:12px; color:var(--on-surface-variant); line-height:1.45; }
+.ob-text strong { color:var(--on-surface); font-weight:500; display:block; margin-bottom:2px; }
+@media (max-width:768px) {
+    .onboarding { flex-direction:column; }
+}
+
+/* ── STEP SECTIONS ── */
+.step-section {
+    background:white; border-radius:16px; padding:32px;
+    box-shadow:0 2px 12px -4px rgba(23,28,31,0.06);
+    margin-bottom:24px;
+    animation:fadeIn 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.step-header {
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:20px;
+}
+.step-number {
+    width:32px; height:32px; border-radius:50%;
+    background:var(--primary); color:white;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:600; flex-shrink:0;
+}
+.step-header h2 { font-weight:300; font-size:22px; }
+.step-header .step-hint {
+    font-family:'Inter',sans-serif; font-size:12px; color:var(--outline);
+    margin-left:auto;
+}
+
+/* ── VISION ── */
+.vision-input {
+    width:100%; font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:18px; font-weight:300; color:var(--on-surface);
+    border:none; border-bottom:2px solid var(--surface-container-high);
+    padding:12px 0; outline:none; background:transparent;
+    transition:border-color 0.2s; letter-spacing:0.01em;
+}
+.vision-input:focus { border-color:var(--primary); }
+.vision-input::placeholder { color:var(--outline-variant); }
+.vision-display {
+    font-size:18px; font-weight:300; color:var(--on-surface);
+    padding:12px 0; line-height:1.5; letter-spacing:0.01em;
+}
+
+/* ── THEMES ── */
+.themes-grid { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+.theme-card {
+    flex:1; min-width:180px;
+    padding:18px;
+    border-radius:12px;
+    position:relative;
+    transition:all 0.25s;
+    cursor:default;
+}
+.theme-card-name {
+    font-size:14px; font-weight:500; color:white;
+    margin-bottom:4px;
+}
+.theme-card-count {
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:500;
+    color:rgba(255,255,255,0.7);
+}
+.theme-card-actions {
+    position:absolute; top:10px; right:10px;
+    display:flex; gap:4px; opacity:0; transition:opacity 0.2s;
+}
+.theme-card:hover .theme-card-actions { opacity:1; }
+.theme-action-btn {
+    width:24px; height:24px; border-radius:50%;
+    background:rgba(255,255,255,0.25); border:none;
+    color:white; cursor:pointer; font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+}
+.theme-action-btn:hover { background:rgba(255,255,255,0.4); }
+.add-theme-btn {
+    flex:0 0 auto; min-width:140px;
+    padding:18px;
+    border-radius:12px;
+    border:2px dashed var(--surface-container-high);
+    background:transparent;
+    color:var(--outline);
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:500;
+    cursor:pointer; transition:all 0.2s;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.add-theme-btn:hover { border-color:var(--primary); color:var(--primary); }
+
+/* ── TOOLBAR ── */
+.toolbar {
+    display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    margin-bottom:20px;
+}
+.toolbar button {
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    padding:8px 18px; border:none; border-radius:8px;
+    cursor:pointer; letter-spacing:0.02em; transition:all 0.2s;
+}
+.btn-primary { background:var(--primary); color:white; }
+.btn-primary:hover { background:var(--primary-light); }
+.btn-secondary { background:white; color:var(--on-surface-variant); box-shadow:0 1px 4px rgba(23,28,31,0.06); }
+.btn-secondary:hover { background:var(--surface-container-low); }
+.btn-danger { background:white; color:#b3261e; box-shadow:0 1px 4px rgba(23,28,31,0.06); }
+.btn-danger:hover { background:#fef0ef; }
+.preset-select {
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    padding:8px 14px; border:1px solid var(--surface-container-high);
+    border-radius:8px; background:white; color:var(--on-surface-variant);
+    cursor:pointer; outline:none; transition:border-color 0.2s;
+}
+.preset-select:focus { border-color:var(--primary); }
+.toolbar-spacer { flex:1; }
+.initiative-count { font-family:'Inter',sans-serif; font-size:12px; color:var(--outline); }
+
+/* ── LAYOUT ── */
+.matrix-layout { display:grid; grid-template-columns:1fr 320px; gap:24px; }
+
+/* ── MATRIX ── */
+.matrix-wrapper {
+    position:relative; background:white; border-radius:16px; padding:32px;
+    box-shadow:0 2px 12px -4px rgba(23,28,31,0.06);
+}
+.axis-label-y {
+    position:absolute; left:-20px; top:50%;
+    transform:rotate(-90deg) translateX(-50%); transform-origin:left center;
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
+    color:var(--outline); letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap;
+}
+.axis-label-x {
+    text-align:center; font-family:'Inter',sans-serif;
+    font-size:11px; font-weight:600; color:var(--outline);
+    letter-spacing:0.08em; text-transform:uppercase; margin-top:12px;
+}
+.matrix-area {
+    position:relative; width:100%; aspect-ratio:1.4; max-height:520px;
+    border-left:2px solid var(--surface-container-high);
+    border-bottom:2px solid var(--surface-container-high);
+    margin-left:28px; cursor:crosshair;
+}
+.quadrant-labels {
+    position:absolute; inset:0; display:grid;
+    grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+    pointer-events:none; z-index:0;
+}
+.quadrant {
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    letter-spacing:0.03em; border-radius:8px; margin:4px;
+    flex-direction:column; gap:2px;
+}
+.quadrant small { font-size:10px; font-weight:400; opacity:0.7; }
+.q-tl { background:rgba(42,125,79,0.04); color:#2a7d4f; }
+.q-tr { background:rgba(164,55,0,0.04); color:var(--primary); }
+.q-bl { background:rgba(105,94,44,0.04); color:var(--secondary); }
+.q-br { background:rgba(141,113,103,0.04); color:var(--outline); }
+
+/* ── INITIATIVE DOTS ── */
+.initiative {
+    position:absolute; width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:600;
+    color:white; cursor:grab; z-index:10;
+    transition:box-shadow 0.2s,transform 0.1s;
+    user-select:none; transform:translate(-50%,-50%);
+}
+.initiative:hover {
+    transform:translate(-50%,-50%) scale(1.15);
+    box-shadow:0 6px 20px rgba(0,0,0,0.2); z-index:20;
+}
+.initiative.dragging {
+    cursor:grabbing; transform:translate(-50%,-50%) scale(1.2);
+    box-shadow:0 10px 30px rgba(0,0,0,0.25); z-index:30;
+}
+.initiative-tooltip {
+    position:absolute; bottom:calc(100% + 8px); left:50%;
+    transform:translateX(-50%); background:#171c1f; color:white;
+    padding:8px 14px; border-radius:8px; font-size:12px; font-weight:400;
+    white-space:nowrap; pointer-events:none; opacity:0; transition:opacity 0.2s; z-index:50;
+}
+.initiative-tooltip::after {
+    content:''; position:absolute; top:100%; left:50%;
+    transform:translateX(-50%); border:5px solid transparent; border-top-color:#171c1f;
+}
+.initiative:hover .initiative-tooltip { opacity:1; }
+
+/* ── SIDE PANEL ── */
+.side-panel { display:flex; flex-direction:column; gap:16px; }
+.panel-card {
+    background:white; border-radius:12px; padding:24px;
+    box-shadow:0 2px 12px -4px rgba(23,28,31,0.06);
+}
+.panel-card h3 { font-weight:300; font-size:16px; margin-bottom:16px; }
+.initiative-list { display:flex; flex-direction:column; gap:6px; max-height:340px; overflow-y:auto; }
+.init-item {
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px; border-radius:8px;
+    background:var(--surface-container-low); font-size:13px;
+    cursor:pointer; transition:background 0.2s;
+}
+.init-item:hover { background:var(--surface-container); }
+.init-item .dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.init-item .name { flex:1; font-weight:400; }
+.init-item .theme-tag {
+    font-family:'Inter',sans-serif; font-size:10px; font-weight:500;
+    padding:2px 8px; border-radius:10px; color:white; white-space:nowrap;
+}
+.init-item .scores { font-family:'Inter',sans-serif; font-size:11px; color:var(--outline); }
+.init-item .remove-btn {
+    background:none; border:none; color:var(--outline);
+    cursor:pointer; font-size:16px; padding:0 4px; opacity:0;
+    transition:opacity 0.2s,color 0.2s;
+}
+.init-item:hover .remove-btn { opacity:1; }
+.init-item .remove-btn:hover { color:#b3261e; }
+
+/* ── QUADRANT SUMMARY ── */
+.quad-summary-item { margin-bottom:14px; }
+.quad-summary-item:last-child { margin-bottom:0; }
+.quad-label { font-size:12px; font-weight:500; color:var(--on-surface); margin-bottom:2px; }
+.quad-count { font-family:'Inter',sans-serif; font-size:11px; color:var(--outline); }
+.quad-items { font-size:12px; color:var(--outline); margin-top:2px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+    position:fixed; inset:0; background:rgba(23,28,31,0.35);
+    backdrop-filter:blur(4px); z-index:200; display:none;
+    align-items:center; justify-content:center;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+    background:white; border-radius:16px; padding:32px;
+    width:440px; max-width:92vw; box-shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+.modal h2 { font-weight:300; font-size:22px; margin-bottom:20px; }
+.form-group { margin-bottom:16px; }
+.form-group label {
+    display:block; font-family:'Inter',sans-serif;
+    font-size:11px; font-weight:500; color:var(--outline);
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;
+}
+.form-group input, .form-group select {
+    width:100%; font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:14px; padding:10px 14px;
+    border:1px solid var(--surface-container-high);
+    border-radius:8px; outline:none; transition:border-color 0.2s;
+    color:var(--on-surface);
+}
+.form-group input:focus, .form-group select:focus { border-color:var(--primary); }
+.slider-row { display:flex; align-items:center; gap:12px; }
+.slider-row input[type="range"] {
+    flex:1; -webkit-appearance:none; appearance:none;
+    height:4px; background:var(--surface-container-high);
+    border-radius:2px; outline:none; border:none; padding:0;
+}
+.slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:18px; height:18px;
+    background:var(--primary); border-radius:50%; cursor:pointer;
+    border:3px solid white; box-shadow:0 1px 4px rgba(0,0,0,0.2);
+}
+.slider-val {
+    font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
+    color:var(--primary); min-width:24px; text-align:center;
+}
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:24px; }
+
+/* ── ROADMAP INFOGRAPHIC ── */
+.roadmap-actions { display:flex; gap:12px; align-items:center; margin-bottom:20px; }
+.roadmap-empty {
+    text-align:center; padding:48px 24px;
+    color:var(--outline); font-size:14px;
+}
+.roadmap-canvas {
+    background:var(--on-surface); border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 24px rgba(23,28,31,0.12); position:relative;
+    padding:36px 32px 32px;
+}
+
+/* Vision banner */
+.rm-vision-banner {
+    text-align:center; margin-bottom:32px; position:relative;
+}
+.rm-vision-label {
+    font-family:'Inter',sans-serif; font-size:10px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.12em; color:rgba(255,255,255,0.35); margin-bottom:8px;
+}
+.rm-vision-text {
+    font-weight:300; font-size:20px; letter-spacing:0.01em; line-height:1.5;
+    color:white; max-width:720px; margin:0 auto;
+}
+
+/* Timeline spine */
+.rm-timeline {
+    position:relative; display:flex; gap:0;
+    margin-top:8px;
+}
+.rm-timeline::before {
+    content:''; position:absolute; top:28px; left:0; right:0;
+    height:3px; background:rgba(255,255,255,0.1); border-radius:2px; z-index:0;
+}
+.rm-year-column {
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    position:relative; z-index:1; min-width:0;
+}
+
+/* Year node */
+.rm-year-node {
+    width:56px; height:56px; border-radius:50%;
+    background:var(--primary); color:white;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px;
+    box-shadow:0 4px 16px rgba(164,55,0,0.3);
+    position:relative; z-index:2; flex-shrink:0;
+}
+.rm-year-node .rm-year-sub-label {
+    font-size:8px; font-weight:500; text-transform:uppercase; letter-spacing:0.06em;
+    opacity:0.7; margin-top:-1px;
+}
+.rm-year-column:first-child .rm-year-node { background:var(--primary); }
+.rm-year-column:last-child .rm-year-node { background:var(--secondary); }
+
+/* Connector line between nodes */
+.rm-connector {
+    width:3px; height:20px; background:rgba(255,255,255,0.08); flex-shrink:0;
+}
+
+/* Initiative cards in each year column */
+.rm-year-cards {
+    display:flex; flex-direction:column; gap:8px;
+    padding:0 6px; width:100%; margin-top:16px;
+}
+.rm-card {
+    background:rgba(255,255,255,0.06); border-radius:10px;
+    padding:10px 14px; position:relative;
+    border-left:3px solid transparent;
+    transition:background 0.2s, transform 0.15s;
+    cursor:default;
+}
+.rm-card:hover {
+    background:rgba(255,255,255,0.1);
+    transform:translateY(-1px);
+}
+.rm-card-name {
+    font-size:12px; font-weight:500; color:white;
+    line-height:1.35; margin-bottom:4px;
+}
+.rm-card-meta {
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+}
+.rm-card-theme {
+    font-family:'Inter',sans-serif; font-size:9px; font-weight:600;
+    padding:2px 7px; border-radius:6px; color:white;
+    text-transform:uppercase; letter-spacing:0.04em;
+}
+.rm-card-score {
+    font-family:'Inter',sans-serif; font-size:9px; font-weight:500;
+    color:rgba(255,255,255,0.4);
+}
+.rm-card-quad {
+    font-family:'Inter',sans-serif; font-size:9px; font-weight:600;
+    padding:2px 6px; border-radius:4px;
+}
+.rm-card-span {
+    font-family:'Inter',sans-serif; font-size:9px; font-weight:500;
+    color:rgba(255,255,255,0.3); margin-left:auto;
+}
+.rm-empty-year {
+    text-align:center; padding:16px 8px;
+    font-family:'Inter',sans-serif; font-size:10px;
+    color:rgba(255,255,255,0.15); font-style:italic;
+}
+
+/* Active count badges */
+.rm-year-badge {
+    font-family:'Inter',sans-serif; font-size:10px; font-weight:500;
+    color:rgba(255,255,255,0.3); margin-top:6px;
+}
+
+/* Legend */
+.rm-legend {
+    display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+    margin-top:28px; padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.06);
+}
+.rm-legend-label {
+    font-family:'Inter',sans-serif; font-size:9px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.1em;
+    color:rgba(255,255,255,0.25); margin-right:4px;
+}
+.rm-legend-item {
+    display:flex; align-items:center; gap:5px;
+    font-family:'Inter',sans-serif; font-size:10px; color:rgba(255,255,255,0.45);
+}
+.rm-legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* Print-friendly roadmap */
+@media print {
+    .top-nav, .toolbar, .roadmap-actions, .btn-primary, .btn-secondary, .btn-danger, .preset-select,
+    .step-section:not(#roadmapSection), .page-footer, .dash-footer, .built-with-strip, .onboarding { display:none !important; }
+    .roadmap-canvas { box-shadow:none; border:1px solid #ddd; }
+    body { background:white; }
+    .container { padding:0; }
+}
+
+/* ── FOOTER ── */
+.page-footer {
+    margin-top:40px; padding:24px 28px;
+    background:white; border-radius:16px;
+    box-shadow:0 2px 12px -4px rgba(23,28,31,0.06);
+}
+.page-footer h3 { font-weight:300; font-size:15px; margin-bottom:4px; }
+.page-footer .footer-subtitle {
+    font-family:'Inter',sans-serif; font-size:12px; color:var(--outline); margin-bottom:16px;
+}
+.page-footer .method-text {
+    font-family:'Inter',sans-serif; font-size:12px; color:var(--on-surface-variant); line-height:1.7;
+}
+.page-footer .method-text a { color:var(--primary); text-decoration:none; }
+.page-footer .method-text a:hover { text-decoration:underline; }
+.dash-footer {
+    text-align:center; padding:32px 0 0;
+    font-family:'Inter',sans-serif; font-size:11px;
+    color:var(--outline); letter-spacing:0.04em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px) {
+    .matrix-layout { grid-template-columns:1fr; }
+    .container { padding:24px 20px 60px; }
+    .top-nav { padding:14px 20px; }
+    .themes-grid { flex-direction:column; }
+    .rm-lane-col, .rm-lane-label { width:120px; min-width:120px; font-size:11px; }
+    .rm-bar { font-size:10px; padding:4px 8px; }
+    .roadmap-canvas { overflow-x:auto; }
+}
+@media (max-width:600px) {
+    .page-header h1 { font-size:28px; }
+    .matrix-wrapper { padding:16px; }
+    .step-section { padding:24px; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.fade-in { opacity:0; transform:translateY(16px); animation:fadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.fade-delay-1 { animation-delay:0.05s; }
+.fade-delay-2 { animation-delay:0.1s; }
+.fade-delay-3 { animation-delay:0.15s; }
+.fade-delay-4 { animation-delay:0.2s; }
+.fade-delay-5 { animation-delay:0.25s; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a href="Alan_Wong_AI_Portfolio.html">&larr; Back to Portfolio</a>
+    <span class="nav-title">Strategic Roadmap Designer</span>
+</nav>
+
+<div class="container">
+
+    <header class="page-header fade-in">
+        <h1>Strategic Roadmap Designer</h1>
+        <p class="subtitle">Define your vision, set strategic themes, prioritize initiatives, and generate a phased roadmap. Built by <span>Alan Wong</span></p>
+        <div class="built-with-strip">
+            <span class="built-with-label">Built with</span>
+            <div class="built-with-items">
+                <div class="built-with-item" title="Claude AI by Anthropic">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>
+                    <span>Claude</span>
+                </div>
+                <div class="built-with-item" title="Claude Cowork">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>
+                    <span>Cowork</span>
+                </div>
+                <div class="built-with-item" title="Vanilla JavaScript">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#F7DF1E"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+                    <span>Vanilla JS</span>
+                </div>
+                <div class="built-with-item" title="HTML5 Drag & Drop API">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="var(--primary)" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <span>Drag &amp; Drop</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══ ONBOARDING ═══ -->
+    <div class="onboarding fade-in fade-delay-1">
+        <div class="ob-step active">
+            <div class="ob-num">1</div>
+            <div class="ob-text"><strong>Set Your Vision</strong>Select a preset or type your own 3–5 year strategic vision below.</div>
+        </div>
+        <div class="ob-step">
+            <div class="ob-num">2</div>
+            <div class="ob-text"><strong>Define Themes</strong>Add 3–5 strategic pillars. Each theme becomes a track in your roadmap.</div>
+        </div>
+        <div class="ob-step">
+            <div class="ob-num">3</div>
+            <div class="ob-text"><strong>Prioritize Initiatives</strong>Score impact &amp; effort, drag to reposition. Assign each a time horizon.</div>
+        </div>
+        <div class="ob-step">
+            <div class="ob-num">4</div>
+            <div class="ob-text"><strong>View Roadmap</strong>Your strategy auto-generates as a phased timeline. Print or export.</div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 1: VISION ═══ -->
+    <div class="step-section fade-in fade-delay-1" id="visionSection">
+        <div class="step-header">
+            <div class="step-number">1</div>
+            <h2>Strategic Vision</h2>
+            <span class="step-hint">What does success look like in 3–5 years?</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:14px;">
+            <select class="preset-select" id="presetSelect" onchange="loadPreset(this.value)" style="min-width:220px;">
+                <option value="" disabled>Load a preset...</option>
+                <option value="yvr">YVR Airport Operations</option>
+                <option value="ai">Enterprise AI Enablement</option>
+                <option value="climate">Climate Resilience &amp; Net Zero</option>
+            </select>
+            <span style="font-family:'Inter',sans-serif; font-size:11px; color:var(--outline);">or write your own below</span>
+        </div>
+        <input class="vision-input" id="visionInput" type="text"
+            placeholder="e.g., Become the most connected, sustainable, and passenger-centric airport in North America by 2030"
+            oninput="onVisionChange()"/>
+    </div>
+
+    <!-- ═══ STEP 2: THEMES ═══ -->
+    <div class="step-section fade-in fade-delay-2" id="themesSection">
+        <div class="step-header">
+            <div class="step-number">2</div>
+            <h2>Strategic Themes</h2>
+            <span class="step-hint">3–5 pillars that support the vision</span>
+        </div>
+        <div class="themes-grid" id="themesGrid"></div>
+    </div>
+
+    <!-- ═══ STEP 3: PRIORITIZE ═══ -->
+    <div class="step-section fade-in fade-delay-3" id="matrixSection" style="padding-bottom:16px;">
+        <div class="step-header">
+            <div class="step-number">3</div>
+            <h2>Prioritize Initiatives</h2>
+            <span class="step-hint">Drag dots to reposition &middot; Double-click to edit</span>
+        </div>
+
+        <div class="toolbar">
+            <button class="btn-primary" onclick="openInitModal()">+ Add Initiative</button>
+            <button class="btn-danger" onclick="clearAll()">Clear All</button>
+            <div class="toolbar-spacer"></div>
+            <span class="initiative-count" id="initCount">0 initiatives</span>
+        </div>
+
+        <div class="matrix-layout">
+            <div class="matrix-wrapper">
+                <div class="axis-label-y">&larr; Low Impact &nbsp;&nbsp;&nbsp; High Impact &rarr;</div>
+                <div class="matrix-area" id="matrixArea">
+                    <div class="quadrant-labels">
+                        <div class="quadrant q-tl">Quick Wins<small>High impact, low effort</small></div>
+                        <div class="quadrant q-tr">Big Bets<small>High impact, high effort</small></div>
+                        <div class="quadrant q-bl">Fill-ins<small>Low impact, low effort</small></div>
+                        <div class="quadrant q-br">Deprioritize<small>Low impact, high effort</small></div>
+                    </div>
+                </div>
+                <div class="axis-label-x">&larr; Low Effort &nbsp;&nbsp;&nbsp;&nbsp; High Effort &rarr;</div>
+            </div>
+
+            <div class="side-panel">
+                <div class="panel-card">
+                    <h3>Initiatives</h3>
+                    <div class="initiative-list" id="initList"></div>
+                </div>
+                <div class="panel-card">
+                    <h3>Quadrant Summary</h3>
+                    <div id="quadrantSummary"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 4: ROADMAP INFOGRAPHIC ═══ -->
+    <div class="step-section fade-in fade-delay-4" id="roadmapSection">
+        <div class="step-header">
+            <div class="step-number">4</div>
+            <h2>Strategy Roadmap</h2>
+            <span class="step-hint">Auto-generated from your vision, themes &amp; priorities</span>
+        </div>
+
+        <div class="roadmap-actions">
+            <button class="btn-primary" onclick="generateRoadmap()">&#9656; Generate Roadmap</button>
+            <button class="btn-secondary" onclick="window.print()">&#128438; Print / Export</button>
+        </div>
+
+        <div id="roadmapOutput">
+            <div class="roadmap-empty">Add a vision, themes, and initiatives above — then hit <strong>Generate Roadmap</strong> to see your strategy visualized.</div>
+        </div>
+    </div>
+
+    <!-- ═══ METHODOLOGY / SOURCES ═══ -->
+    <div class="page-footer fade-in fade-delay-5">
+        <h3>Methodology</h3>
+        <p class="footer-subtitle">How this tool works and where the framework comes from</p>
+        <div class="method-text">
+            The 2x2 Impact vs. Effort matrix is a standard strategic prioritization framework used by consulting firms, product teams, and operations leaders. Initiatives are scored on two dimensions (1–10 each) and plotted into four quadrants: <strong>Quick Wins</strong> (high impact, low effort — do first), <strong>Big Bets</strong> (high impact, high effort — plan carefully), <strong>Fill-ins</strong> (low impact, low effort — delegate or batch), and <strong>Deprioritize</strong> (low impact, high effort — cut or defer).
+            <br/><br/>
+            <strong>Roadmap sequencing</strong> is driven by the impact-to-effort ratio within each quadrant. Initiatives with a higher ratio (more impact per unit of effort) are scheduled to start earlier. This means two Big Bets don't automatically share the same timeline — one with impact 9 / effort 6 (ratio 1.5) starts before one with impact 6 / effort 9 (ratio 0.67). The matrix position acts as a continuous priority score, not just a quadrant bucket. Dragging an initiative to a new position recalculates the entire roadmap in real time.
+            <br/><br/>
+            <strong>Year ranges by quadrant:</strong> Quick Wins start in 2026 (execute immediately). Big Bets are staggered across 2026–2028 based on ratio ranking — best-ratio bets start earliest. Fill-ins spread across 2026–2027. Deprioritized items are pushed to 2029–2030. All year assignments update dynamically when you reposition initiatives on the matrix.
+            <br/><br/>
+            The <strong>YVR Operational Strategy &amp; Reporting</strong> preset is structured around the mandate of YVR's Director of Operational Strategy and Reporting — designing a comprehensive reporting ecosystem, advancing digital transformation, driving cross-functional alignment, and strengthening operational performance measurement. Initiative names reflect publicly known YVR priorities; impact and effort scores are illustrative, not sourced from YVR's internal planning.
+            <br/><br/>
+            References:
+            <a href="https://www.yvr.ca/en/about-yvr/leadership/annual-and-sustainability-report" target="_blank">YVR Annual Report</a> &middot;
+            <a href="https://news.yvr.ca/yvr-marks-record-breaking-year/" target="_blank">YVR 2025 Results</a> &middot;
+            <a href="https://blog.aci.aero/interviews-and-messages/top-5-priorities-for-airports-in-2026-by-justin-erbacci-aci-world-director-general/" target="_blank">ACI World 2026 Priorities</a> &middot;
+            <a href="https://www.iata.org/en/programs/ops-infra/airport-infrastructure/" target="_blank">IATA Airport Infrastructure</a>
+        </div>
+    </div>
+
+    <div class="dash-footer">
+        Strategic Roadmap Designer &middot; Alan Wong &middot; April 2026
+    </div>
+</div>
+
+<!-- ═══ ADD/EDIT INITIATIVE MODAL ═══ -->
+<div class="modal-overlay" id="initModal">
+    <div class="modal">
+        <h2 id="initModalTitle">Add Initiative</h2>
+        <div class="form-group">
+            <label>Initiative Name</label>
+            <input type="text" id="initName" placeholder="e.g., Biometric Boarding Gates"/>
+        </div>
+        <div class="form-group">
+            <label>Strategic Theme</label>
+            <select id="initTheme"></select>
+        </div>
+        <div class="form-group">
+            <label>Impact (1–10)</label>
+            <div class="slider-row">
+                <input type="range" id="initImpact" min="1" max="10" value="5" oninput="document.getElementById('impactVal').textContent=this.value"/>
+                <span class="slider-val" id="impactVal">5</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Effort (1–10)</label>
+            <div class="slider-row">
+                <input type="range" id="initEffort" min="1" max="10" value="5" oninput="document.getElementById('effortVal').textContent=this.value"/>
+                <span class="slider-val" id="effortVal">5</span>
+            </div>
+        </div>
+        <div style="display:flex; gap:12px;">
+            <div class="form-group" style="flex:1;">
+                <label>Start Year</label>
+                <select id="initStartYear">
+                    <option value="2026">2026</option><option value="2027">2027</option>
+                    <option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>End Year</label>
+                <select id="initEndYear">
+                    <option value="2026">2026</option><option value="2027">2027</option>
+                    <option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-secondary" onclick="closeInitModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveInitiative()">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ ADD/EDIT THEME MODAL ═══ -->
+<div class="modal-overlay" id="themeModal">
+    <div class="modal">
+        <h2 id="themeModalTitle">Add Theme</h2>
+        <div class="form-group">
+            <label>Theme Name</label>
+            <input type="text" id="themeName" placeholder="e.g., Digital Transformation"/>
+        </div>
+        <div class="form-group">
+            <label>Color</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;" id="colorPicker"></div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-secondary" onclick="closeThemeModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveTheme()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let state = {
+    vision: '',
+    themes: [],
+    initiatives: [],
+};
+let editingInitId = null;
+let editingThemeId = null;
+let dragState = null;
+
+const THEME_COLORS = [
+    '#a43700', '#695e2c', '#4a90d9', '#3a8a5c', '#705654',
+    '#8d5b9a', '#c26a3e', '#2d7d9a', '#7a6b3a', '#5a6e8a',
+];
+let nextColorIdx = 0;
+
+// ═══════════════════════════════════════════
+// PRESET DATA — 3 strategic visions
+// ═══════════════════════════════════════════
+const PRESETS = {
+    yvr: {
+        label: 'YVR Operational Strategy & Reporting',
+        vision: 'Strengthen how YVR plans, delivers, and measures operational performance — enabling data-driven decision-making, enterprise-wide transparency, and "One YVR" alignment across all transformation initiatives by 2030',
+        themes: [
+            { id: 1, name: 'Reporting Ecosystem', color: '#4a90d9' },
+            { id: 2, name: 'Digital Transformation', color: '#a43700' },
+            { id: 3, name: 'Cross-Functional Alignment', color: '#3a8a5c' },
+            { id: 4, name: 'Operational Performance', color: '#695e2c' },
+        ],
+        initiatives: [
+            { id: 101, name: 'Enterprise Reporting Dashboard',        themeId: 1, impact: 9, effort: 5, startYear: 2026, endYear: 2027 },
+            { id: 102, name: 'Executive Decision Support System',     themeId: 1, impact: 8, effort: 6, startYear: 2027, endYear: 2028 },
+            { id: 103, name: 'Program Milestone Tracking Framework',  themeId: 3, impact: 8, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 104, name: 'Digital Transformation Governance',     themeId: 2, impact: 9, effort: 7, startYear: 2026, endYear: 2028 },
+            { id: 105, name: 'Terminal Expansion Program Oversight',  themeId: 3, impact: 10, effort: 9, startYear: 2027, endYear: 2030 },
+            { id: 106, name: 'Biometric & AI Passenger Processing',   themeId: 2, impact: 8, effort: 8, startYear: 2027, endYear: 2029 },
+            { id: 107, name: 'KPI Standardization Across Departments', themeId: 4, impact: 7, effort: 4, startYear: 2026, endYear: 2027 },
+            { id: 108, name: 'Stakeholder Review Cadence Design',     themeId: 3, impact: 7, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 109, name: 'Predictive Operations Analytics',       themeId: 4, impact: 8, effort: 6, startYear: 2027, endYear: 2028 },
+            { id: 110, name: 'Data-Driven Financial Planning Model',  themeId: 1, impact: 7, effort: 5, startYear: 2026, endYear: 2027 },
+            { id: 111, name: 'Cross-Dept Barrier Removal Process',    themeId: 3, impact: 6, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 112, name: '"One YVR" Integration Playbook',        themeId: 2, impact: 8, effort: 5, startYear: 2026, endYear: 2027 },
+        ],
+    },
+    ai: {
+        label: 'Enterprise AI Enablement',
+        vision: 'Embed AI across all business functions to reduce operational costs by 30% and create new revenue streams by 2029',
+        themes: [
+            { id: 1, name: 'AI Infrastructure', color: '#4a90d9' },
+            { id: 2, name: 'Workforce Transformation', color: '#8d5b9a' },
+            { id: 3, name: 'Intelligent Automation', color: '#a43700' },
+            { id: 4, name: 'Data Strategy', color: '#695e2c' },
+        ],
+        initiatives: [
+            { id: 201, name: 'AI Copilot for Customer Service',  themeId: 3, impact: 8, effort: 4, startYear: 2026, endYear: 2026 },
+            { id: 202, name: 'Enterprise Data Lake Consolidation', themeId: 4, impact: 9, effort: 8, startYear: 2026, endYear: 2028 },
+            { id: 203, name: 'Predictive Analytics Platform',     themeId: 4, impact: 8, effort: 6, startYear: 2027, endYear: 2028 },
+            { id: 204, name: 'AI Document Processing',            themeId: 3, impact: 7, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 205, name: 'AI Literacy Upskilling Program',    themeId: 2, impact: 7, effort: 5, startYear: 2026, endYear: 2027 },
+            { id: 206, name: 'Autonomous Workflow Orchestration',  themeId: 3, impact: 9, effort: 9, startYear: 2028, endYear: 2029 },
+            { id: 207, name: 'AI Governance Framework',            themeId: 1, impact: 6, effort: 4, startYear: 2026, endYear: 2026 },
+            { id: 208, name: 'Generative AI Content Pipeline',     themeId: 3, impact: 5, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 209, name: 'AI Center of Excellence',            themeId: 2, impact: 8, effort: 7, startYear: 2027, endYear: 2028 },
+            { id: 210, name: 'Real-time Decision Intelligence',    themeId: 4, impact: 9, effort: 7, startYear: 2028, endYear: 2029 },
+        ],
+    },
+    climate: {
+        label: 'Climate Resilience & Net Zero',
+        vision: 'Achieve net-zero carbon operations by 2030 while building infrastructure resilience against climate disruption — aligned with ACI World and ICAO 2026–2050 strategic frameworks',
+        themes: [
+            { id: 1, name: 'Renewable Energy', color: '#3a8a5c' },
+            { id: 2, name: 'Sustainable Aviation Fuel', color: '#695e2c' },
+            { id: 3, name: 'Climate Adaptation', color: '#4a90d9' },
+            { id: 4, name: 'Green Infrastructure', color: '#2d7d9a' },
+        ],
+        initiatives: [
+            { id: 301, name: 'Solar Microgrid Deployment',          themeId: 1, impact: 9, effort: 7, startYear: 2027, endYear: 2028 },
+            { id: 302, name: 'SAF Blending Infrastructure',          themeId: 2, impact: 10, effort: 9, startYear: 2027, endYear: 2029 },
+            { id: 303, name: 'Battery Storage Integration',          themeId: 1, impact: 7, effort: 5, startYear: 2026, endYear: 2027 },
+            { id: 304, name: 'Extreme Weather Response System',      themeId: 3, impact: 8, effort: 4, startYear: 2026, endYear: 2026 },
+            { id: 305, name: 'EV Ground Fleet Conversion',           themeId: 4, impact: 7, effort: 6, startYear: 2027, endYear: 2028 },
+            { id: 306, name: 'Carbon Offset Marketplace',            themeId: 4, impact: 5, effort: 3, startYear: 2026, endYear: 2026 },
+            { id: 307, name: 'Flood Resilience Runway Upgrades',     themeId: 3, impact: 9, effort: 9, startYear: 2028, endYear: 2030 },
+            { id: 308, name: 'IoT Energy Management System',         themeId: 1, impact: 8, effort: 5, startYear: 2026, endYear: 2027 },
+            { id: 309, name: 'Green Terminal Certification',          themeId: 4, impact: 6, effort: 7, startYear: 2028, endYear: 2029 },
+            { id: 310, name: 'Heat Stress Mitigation Program',       themeId: 3, impact: 6, effort: 4, startYear: 2026, endYear: 2027 },
+        ],
+    },
+};
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+function init() {
+    loadPreset('yvr');
+    document.getElementById('presetSelect').value = 'yvr';
+    setupDrag();
+}
+
+function loadPreset(key) {
+    const preset = PRESETS[key];
+    if (!preset) return;
+    state.vision = preset.vision;
+    state.themes = preset.themes.map(t => ({ ...t }));
+    state.initiatives = preset.initiatives.map(i => ({ ...i }));
+    nextColorIdx = state.themes.length;
+    document.getElementById('visionInput').value = state.vision;
+    renderAll();
+    generateRoadmap();
+}
+
+function clearAll() {
+    state.vision = '';
+    state.themes = [];
+    state.initiatives = [];
+    nextColorIdx = 0;
+    document.getElementById('visionInput').value = '';
+    renderAll();
+}
+
+let visionDebounce = null;
+function onVisionChange() {
+    state.vision = document.getElementById('visionInput').value;
+    clearTimeout(visionDebounce);
+    visionDebounce = setTimeout(() => {
+        if (state.themes.length || state.initiatives.length) generateRoadmap();
+    }, 400);
+}
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function renderAll() {
+    renderThemes();
+    renderMatrix();
+    renderInitList();
+    renderQuadrantSummary();
+    document.getElementById('initCount').textContent =
+        `${state.initiatives.length} initiative${state.initiatives.length !== 1 ? 's' : ''}`;
+    // Auto-refresh roadmap whenever state changes (themes, initiatives, etc.)
+    if (state.themes.length || state.initiatives.length) {
+        generateRoadmap();
+    }
+}
+
+function getTheme(id) {
+    return state.themes.find(t => t.id === id) || { name: '—', color: '#8d7167' };
+}
+
+// ── THEMES ──
+function renderThemes() {
+    const grid = document.getElementById('themesGrid');
+    grid.innerHTML = state.themes.map(t => {
+        const count = state.initiatives.filter(i => i.themeId === t.id).length;
+        return `
+        <div class="theme-card" style="background:${t.color};" data-id="${t.id}">
+            <div class="theme-card-actions">
+                <button class="theme-action-btn" onclick="openThemeModal(${t.id})" title="Edit">&#9998;</button>
+                <button class="theme-action-btn" onclick="removeTheme(${t.id})" title="Remove">&times;</button>
+            </div>
+            <div class="theme-card-name">${t.name}</div>
+            <div class="theme-card-count">${count} initiative${count !== 1 ? 's' : ''}</div>
+        </div>`;
+    }).join('') + `<button class="add-theme-btn" onclick="openThemeModal()">+ Add Theme</button>`;
+}
+
+// ── MATRIX ──
+function renderMatrix() {
+    const area = document.getElementById('matrixArea');
+    area.querySelectorAll('.initiative').forEach(el => el.remove());
+
+    state.initiatives.forEach(init => {
+        const theme = getTheme(init.themeId);
+        const dot = document.createElement('div');
+        dot.className = 'initiative';
+        dot.style.background = theme.color;
+        dot.style.boxShadow = `0 3px 12px ${theme.color}55`;
+
+        // effort on X (low=left, high=right), impact on Y (high=top, low=bottom)
+        const x = ((init.effort - 1) / 9) * 100;
+        const y = (1 - (init.impact - 1) / 9) * 100;
+        dot.style.left = `${Math.max(3, Math.min(97, x))}%`;
+        dot.style.top = `${Math.max(3, Math.min(97, y))}%`;
+
+        const words = init.name.split(' ');
+        dot.textContent = words.length >= 2 ? (words[0][0] + words[1][0]).toUpperCase() : words[0].substring(0,2).toUpperCase();
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'initiative-tooltip';
+        tooltip.textContent = `${init.name} — ${theme.name} — I:${init.impact} E:${init.effort}`;
+        dot.appendChild(tooltip);
+
+        dot.dataset.id = init.id;
+        dot.addEventListener('mousedown', startDrag);
+        dot.addEventListener('touchstart', startDrag, { passive: false });
+        dot.addEventListener('dblclick', () => openInitModal(init.id));
+
+        area.appendChild(dot);
+    });
+}
+
+// ── INITIATIVE LIST ──
+function renderInitList() {
+    const list = document.getElementById('initList');
+    list.innerHTML = state.initiatives.map(init => {
+        const theme = getTheme(init.themeId);
+        return `
+        <div class="init-item" onclick="openInitModal(${init.id})">
+            <div class="dot" style="background:${theme.color}"></div>
+            <span class="name">${init.name}</span>
+            <span class="theme-tag" style="background:${theme.color}">${theme.name}</span>
+            <span class="scores">I:${init.impact} E:${init.effort}</span>
+            <button class="remove-btn" onclick="event.stopPropagation(); removeInit(${init.id})">&times;</button>
+        </div>`;
+    }).join('');
+}
+
+// ── QUADRANT SUMMARY ──
+function renderQuadrantSummary() {
+    const quads = {
+        'Quick Wins': { items: [], desc: 'High impact, low effort' },
+        'Big Bets': { items: [], desc: 'High impact, high effort' },
+        'Fill-ins': { items: [], desc: 'Low impact, low effort' },
+        'Deprioritize': { items: [], desc: 'Low impact, high effort' },
+    };
+    state.initiatives.forEach(init => {
+        const hi = init.impact > 5, lo = init.effort <= 5;
+        if (hi && lo) quads['Quick Wins'].items.push(init.name);
+        else if (hi && !lo) quads['Big Bets'].items.push(init.name);
+        else if (!hi && lo) quads['Fill-ins'].items.push(init.name);
+        else quads['Deprioritize'].items.push(init.name);
+    });
+    document.getElementById('quadrantSummary').innerHTML = Object.entries(quads).map(([q, d]) => `
+        <div class="quad-summary-item">
+            <div class="quad-label">${q} <span class="quad-count">(${d.items.length})</span></div>
+            <div class="quad-items">${d.items.length ? d.items.join(', ') : '—'}</div>
+        </div>
+    `).join('');
+}
+
+// ═══════════════════════════════════════════
+// DRAG & DROP
+// ═══════════════════════════════════════════
+function setupDrag() {
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('touchend', endDrag);
+}
+
+function startDrag(e) {
+    e.preventDefault();
+    dragState = { id: +e.currentTarget.dataset.id, el: e.currentTarget };
+    e.currentTarget.classList.add('dragging');
+}
+
+function onDrag(e) {
+    if (!dragState) return;
+    e.preventDefault && e.preventDefault();
+    const pt = e.touches ? e.touches[0] : e;
+    const area = document.getElementById('matrixArea');
+    const rect = area.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (pt.clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (pt.clientY - rect.top) / rect.height));
+    dragState.el.style.left = `${x * 100}%`;
+    dragState.el.style.top = `${y * 100}%`;
+    const init = state.initiatives.find(i => i.id === dragState.id);
+    if (init) {
+        init.effort = Math.round(x * 9 + 1);
+        init.impact = Math.round((1 - y) * 9 + 1);
+    }
+}
+
+function endDrag() {
+    if (!dragState) return;
+    dragState.el.classList.remove('dragging');
+    dragState = null;
+    // Reassign ALL years based on new positions — ratio-based staggering
+    reassignAllYearsByRatio();
+    renderAll();
+}
+
+// ═══════════════════════════════════════════
+// INITIATIVE MODAL
+// ═══════════════════════════════════════════
+function openInitModal(id) {
+    editingInitId = id || null;
+    populateThemeSelect();
+    const title = document.getElementById('initModalTitle');
+    if (editingInitId) {
+        const init = state.initiatives.find(i => i.id === editingInitId);
+        if (!init) return;
+        title.textContent = 'Edit Initiative';
+        document.getElementById('initName').value = init.name;
+        document.getElementById('initTheme').value = init.themeId;
+        document.getElementById('initImpact').value = init.impact;
+        document.getElementById('initEffort').value = init.effort;
+        document.getElementById('impactVal').textContent = init.impact;
+        document.getElementById('effortVal').textContent = init.effort;
+        document.getElementById('initStartYear').value = init.startYear || 2026;
+        document.getElementById('initEndYear').value = init.endYear || init.startYear || 2026;
+    } else {
+        title.textContent = 'Add Initiative';
+        document.getElementById('initName').value = '';
+        document.getElementById('initImpact').value = 5;
+        document.getElementById('initEffort').value = 5;
+        document.getElementById('impactVal').textContent = '5';
+        document.getElementById('effortVal').textContent = '5';
+        document.getElementById('initStartYear').value = 2026;
+        document.getElementById('initEndYear').value = 2026;
+    }
+    document.getElementById('initModal').classList.add('open');
+    setTimeout(() => document.getElementById('initName').focus(), 100);
+}
+
+function closeInitModal() {
+    document.getElementById('initModal').classList.remove('open');
+    editingInitId = null;
+}
+
+function populateThemeSelect() {
+    const sel = document.getElementById('initTheme');
+    sel.innerHTML = state.themes.map(t =>
+        `<option value="${t.id}">${t.name}</option>`
+    ).join('');
+}
+
+function saveInitiative() {
+    const name = document.getElementById('initName').value.trim();
+    if (!name) return;
+    const sy = +document.getElementById('initStartYear').value;
+    const ey = +document.getElementById('initEndYear').value;
+    const data = {
+        name,
+        themeId: +document.getElementById('initTheme').value,
+        impact: +document.getElementById('initImpact').value,
+        effort: +document.getElementById('initEffort').value,
+        startYear: sy,
+        endYear: Math.max(sy, ey),
+    };
+    if (editingInitId) {
+        const init = state.initiatives.find(i => i.id === editingInitId);
+        if (init) Object.assign(init, data);
+    } else {
+        state.initiatives.push({ id: Date.now(), ...data });
+    }
+    closeInitModal();
+    renderAll();
+}
+
+function removeInit(id) {
+    state.initiatives = state.initiatives.filter(i => i.id !== id);
+    renderAll();
+}
+
+// ═══════════════════════════════════════════
+// THEME MODAL
+// ═══════════════════════════════════════════
+let selectedColor = THEME_COLORS[0];
+
+function openThemeModal(id) {
+    editingThemeId = id || null;
+    const title = document.getElementById('themeModalTitle');
+    renderColorPicker();
+    if (editingThemeId) {
+        const theme = state.themes.find(t => t.id === editingThemeId);
+        if (!theme) return;
+        title.textContent = 'Edit Theme';
+        document.getElementById('themeName').value = theme.name;
+        selectedColor = theme.color;
+        renderColorPicker();
+    } else {
+        title.textContent = 'Add Theme';
+        document.getElementById('themeName').value = '';
+        selectedColor = THEME_COLORS[nextColorIdx % THEME_COLORS.length];
+        renderColorPicker();
+    }
+    document.getElementById('themeModal').classList.add('open');
+    setTimeout(() => document.getElementById('themeName').focus(), 100);
+}
+
+function closeThemeModal() {
+    document.getElementById('themeModal').classList.remove('open');
+    editingThemeId = null;
+}
+
+function renderColorPicker() {
+    document.getElementById('colorPicker').innerHTML = THEME_COLORS.map(c => `
+        <div onclick="selectColor('${c}')" style="
+            width:32px; height:32px; border-radius:50%; background:${c};
+            cursor:pointer; transition:all 0.2s;
+            ${c === selectedColor ? 'box-shadow:0 0 0 3px white, 0 0 0 5px ' + c + '; transform:scale(1.15);' : ''}
+        "></div>
+    `).join('');
+}
+
+function selectColor(c) {
+    selectedColor = c;
+    renderColorPicker();
+}
+
+function saveTheme() {
+    const name = document.getElementById('themeName').value.trim();
+    if (!name) return;
+    if (editingThemeId) {
+        const theme = state.themes.find(t => t.id === editingThemeId);
+        if (theme) { theme.name = name; theme.color = selectedColor; }
+    } else {
+        state.themes.push({ id: Date.now(), name, color: selectedColor });
+        nextColorIdx++;
+    }
+    closeThemeModal();
+    renderAll();
+}
+
+function removeTheme(id) {
+    state.themes = state.themes.filter(t => t.id !== id);
+    state.initiatives = state.initiatives.filter(i => i.themeId !== id);
+    renderAll();
+}
+
+// ═══════════════════════════════════════════
+// ROADMAP INFOGRAPHIC — Year-Based Timeline
+// ═══════════════════════════════════════════
+function getQuadLabel(init) {
+    const hi = init.impact > 5, lo = init.effort <= 5;
+    if (hi && lo) return 'Quick Win';
+    if (hi && !lo) return 'Big Bet';
+    if (!hi && lo) return 'Fill-in';
+    return 'Deprioritize';
+}
+
+function getQuadColor(label) {
+    switch (label) {
+        case 'Quick Win': return { bg: '#e8f5e9', fg: '#2a7d4f' };
+        case 'Big Bet':   return { bg: '#fff3e0', fg: '#a43700' };
+        case 'Fill-in':   return { bg: '#f3f0e0', fg: '#695e2c' };
+        default:          return { bg: '#f0f0f0', fg: '#8d7167' };
+    }
+}
+
+function escHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+
+function getYearRange() {
+    let minY = 9999, maxY = 0;
+    state.initiatives.forEach(init => {
+        const sy = init.startYear || 2026;
+        const ey = init.endYear || sy;
+        if (sy < minY) minY = sy;
+        if (ey > maxY) maxY = ey;
+    });
+    if (minY > maxY) { minY = 2026; maxY = 2030; }
+    // Ensure at least 3 years shown
+    if (maxY - minY < 2) maxY = minY + 2;
+    const years = [];
+    for (let y = minY; y <= maxY; y++) years.push(y);
+    return years;
+}
+
+function assignYearsFromQuadrant(init) {
+    // If initiative already has year data, use it
+    if (init.startYear) return;
+    // Otherwise, use ratio-based assignment
+    assignYearsByRatio(init);
+}
+
+// Year ranges per quadrant: [startMin, startMax, duration]
+const QUAD_YEAR_RANGES = {
+    'Quick Win':    { startMin: 2026, startMax: 2026, duration: 0 },
+    'Fill-in':      { startMin: 2026, startMax: 2027, duration: 1 },
+    'Big Bet':      { startMin: 2026, startMax: 2028, duration: 1 },
+    'Deprioritize': { startMin: 2029, startMax: 2030, duration: 1 }
+};
+
+function assignYearsByRatio(init) {
+    const quad = getQuadLabel(init);
+    const range = QUAD_YEAR_RANGES[quad] || QUAD_YEAR_RANGES['Deprioritize'];
+    // Get all initiatives in the same quadrant, ranked by impact/effort ratio
+    const sameQuad = state.initiatives
+        .filter(i => getQuadLabel(i) === quad)
+        .sort((a, b) => (b.impact / b.effort) - (a.impact / a.effort));
+    const rank = sameQuad.findIndex(i => i.id === init.id);
+    const count = sameQuad.length;
+    // Spread start years across the range based on rank (best ratio = earliest)
+    const yearSpread = range.startMax - range.startMin;
+    const startYear = count <= 1
+        ? range.startMin
+        : Math.round(range.startMin + (rank / (count - 1)) * yearSpread);
+    init.startYear = startYear;
+    init.endYear = Math.min(startYear + range.duration, 2030);
+}
+
+function reassignAllYearsByRatio() {
+    // Clear all year assignments and reassign based on current quadrant positions
+    state.initiatives.forEach(init => {
+        delete init.startYear;
+        delete init.endYear;
+    });
+    state.initiatives.forEach(init => assignYearsByRatio(init));
+}
+
+function generateRoadmap() {
+    const out = document.getElementById('roadmapOutput');
+
+    if (!state.themes.length && !state.initiatives.length) {
+        out.innerHTML = '<div class="roadmap-empty">Add a vision, themes, and initiatives above — then hit <strong>Generate Roadmap</strong> to see your strategy visualized.</div>';
+        return;
+    }
+
+    // Auto-assign years using ratio-based staggering
+    const needsAssignment = state.initiatives.some(i => !i.startYear);
+    if (needsAssignment) {
+        reassignAllYearsByRatio();
+    }
+
+    const years = getYearRange();
+    const phaseNames = ['Foundation', 'Build', 'Accelerate', 'Scale', 'Mature'];
+
+    let html = '<div class="roadmap-canvas">';
+
+    // Vision banner
+    if (state.vision) {
+        html += `<div class="rm-vision-banner">
+            <div class="rm-vision-label">Strategic Vision</div>
+            <div class="rm-vision-text">${escHtml(state.vision)}</div>
+        </div>`;
+    }
+
+    // Timeline
+    html += `<div class="rm-timeline">`;
+
+    years.forEach((y, yi) => {
+        const phaseName = phaseNames[yi] || phaseNames[phaseNames.length - 1];
+
+        // Get all initiatives ACTIVE in this year (start <= y <= end)
+        const activeInits = state.initiatives
+            .filter(i => {
+                const sy = i.startYear || 2026;
+                const ey = i.endYear || sy;
+                return y >= sy && y <= ey;
+            })
+            .sort((a, b) => b.impact - a.impact);
+
+        // Count only those that START this year (for the badge)
+        const startingCount = state.initiatives.filter(i => (i.startYear || 2026) === y).length;
+
+        html += `<div class="rm-year-column">`;
+
+        // Year node
+        html += `<div class="rm-year-node">
+            ${y}
+            <span class="rm-year-sub-label">${phaseName}</span>
+        </div>`;
+
+        // Active count
+        html += `<div class="rm-year-badge">${activeInits.length} active</div>`;
+
+        // Connector
+        html += `<div class="rm-connector"></div>`;
+
+        // Initiative cards
+        html += `<div class="rm-year-cards">`;
+
+        if (!activeInits.length) {
+            html += `<div class="rm-empty-year">No initiatives</div>`;
+        } else {
+            activeInits.forEach(init => {
+                const theme = getTheme(init.themeId);
+                const sy = init.startYear || 2026;
+                const ey = init.endYear || sy;
+                const spanLabel = sy === ey ? String(sy) : `${sy}–${ey}`;
+                const isStart = sy === y;
+
+                html += `<div class="rm-card" style="border-left-color:${theme.color};${isStart ? '' : 'opacity:0.5;'}"
+                          title="Impact: ${init.impact} | Effort: ${init.effort} | ${getQuadLabel(init)} | ${spanLabel}">
+                    <div class="rm-card-name">${escHtml(init.name)}</div>
+                    <div class="rm-card-meta">
+                        <span class="rm-card-theme" style="background:${theme.color}">${escHtml(theme.name)}</span>
+                        <span class="rm-card-quad" style="background:${getQuadColor(getQuadLabel(init)).bg};color:${getQuadColor(getQuadLabel(init)).fg}">${getQuadLabel(init)}</span>
+                        <span class="rm-card-score">I:${init.impact} E:${init.effort}</span>
+                        <span class="rm-card-span">${spanLabel}</span>
+                    </div>
+                </div>`;
+            });
+        }
+
+        html += `</div></div>`;
+    });
+
+    html += `</div>`;
+
+    // Legend
+    html += `<div class="rm-legend">
+        <span class="rm-legend-label">Themes</span>`;
+    state.themes.forEach(t => {
+        html += `<div class="rm-legend-item"><div class="rm-legend-dot" style="background:${t.color}"></div> ${escHtml(t.name)}</div>`;
+    });
+    html += `</div>`;
+
+    html += '</div>';
+    out.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeInitModal(); closeThemeModal(); }
+});
+document.getElementById('initModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeInitModal(); });
+document.getElementById('themeModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeThemeModal(); });
+
+// ═══════════════════════════════════════════
+// START
+// ═══════════════════════════════════════════
+init();
+</script>
+</body>
+</html>
