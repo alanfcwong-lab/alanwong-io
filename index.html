@@ -2,76 +2,14 @@
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Alan Wong | AI Projects & Operations Portfolio</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="assets/tailwind.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script>
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "surface-container-highest": "#dee3e7",
-        "secondary-container": "#efe0a1",
-        "surface-container-low": "#eff4f8",
-        "secondary-fixed": "#f2e3a4",
-        "surface-container-high": "#e4e9ed",
-        "tertiary-fixed": "#fedad8",
-        "on-secondary-fixed-variant": "#504717",
-        "background": "#f5fafe",
-        "on-background": "#171c1f",
-        "primary-container": "#cb4a0c",
-        "outline": "#8d7167",
-        "on-tertiary-fixed": "#291716",
-        "on-primary-container": "#fffbff",
-        "on-primary-fixed": "#380d00",
-        "error-container": "#ffdad6",
-        "tertiary": "#705654",
-        "on-secondary": "#ffffff",
-        "on-primary": "#ffffff",
-        "secondary": "#695e2c",
-        "on-primary-fixed-variant": "#812900",
-        "on-surface": "#171c1f",
-        "primary": "#a43700",
-        "inverse-primary": "#ffb59a",
-        "primary-fixed-dim": "#ffb59a",
-        "inverse-on-surface": "#ecf1f5",
-        "surface-tint": "#a83800",
-        "surface-container": "#eaeef2",
-        "surface-variant": "#dee3e7",
-        "surface-dim": "#d6dbdf",
-        "inverse-surface": "#2c3134",
-        "surface": "#f5fafe",
-        "on-secondary-fixed": "#211b00",
-        "on-secondary-container": "#6d6330",
-        "primary-fixed": "#ffdbcf",
-        "secondary-fixed-dim": "#d5c78a",
-        "surface-bright": "#f5fafe",
-        "tertiary-fixed-dim": "#e0bfbd",
-        "surface-container-lowest": "#ffffff",
-        "tertiary-container": "#8a6e6c",
-        "outline-variant": "#e1bfb4",
-        "on-tertiary-fixed-variant": "#594140",
-        "on-surface-variant": "#594139",
-        "on-tertiary": "#ffffff",
-        "on-tertiary-container": "#fffbff"
-      },
-      borderRadius: {
-        DEFAULT: "0.125rem",
-        lg: "0.25rem",
-        xl: "0.5rem",
-        full: "0.75rem"
-      },
-      fontFamily: {
-        headline: ["Plus Jakarta Sans"],
-        body: ["Plus Jakarta Sans"],
-        label: ["Inter"]
-      }
-    },
-  },
-}
-</script>
+<!-- Tailwind config baked into assets/tailwind.css at build time -->
+
 <style>
     body {
         background-color: #f5fafe;

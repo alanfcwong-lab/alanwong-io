@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Strategic Roadmap Designer | Alan Wong</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -663,7 +665,7 @@ body {
             </select>
             <span style="font-family:'Inter',sans-serif; font-size:11px; color:var(--outline);">or write your own below</span>
         </div>
-        <input class="vision-input" id="visionInput" type="text"
+        <input class="vision-input" id="visionInput" type="text" maxlength="200"
             placeholder="e.g., Become the most connected, sustainable, and passenger-centric airport in North America by 2030"
             oninput="onVisionChange()"/>
     </div>
@@ -770,7 +772,7 @@ body {
         <h2 id="initModalTitle">Add Initiative</h2>
         <div class="form-group">
             <label>Initiative Name</label>
-            <input type="text" id="initName" placeholder="e.g., Biometric Boarding Gates"/>
+            <input type="text" id="initName" maxlength="80" placeholder="e.g., Biometric Boarding Gates"/>
         </div>
         <div class="form-group">
             <label>Strategic Theme</label>
@@ -819,7 +821,7 @@ body {
         <h2 id="themeModalTitle">Add Theme</h2>
         <div class="form-group">
             <label>Theme Name</label>
-            <input type="text" id="themeName" placeholder="e.g., Digital Transformation"/>
+            <input type="text" id="themeName" maxlength="50" placeholder="e.g., Digital Transformation"/>
         </div>
         <div class="form-group">
             <label>Color</label>
@@ -957,7 +959,7 @@ function clearAll() {
 
 let visionDebounce = null;
 function onVisionChange() {
-    state.vision = document.getElementById('visionInput').value;
+    state.vision = document.getElementById('visionInput').value.slice(0, 200);
     clearTimeout(visionDebounce);
     visionDebounce = setTimeout(() => {
         if (state.themes.length || state.initiatives.length) generateRoadmap();
@@ -1163,7 +1165,7 @@ function populateThemeSelect() {
 }
 
 function saveInitiative() {
-    const name = document.getElementById('initName').value.trim();
+    const name = document.getElementById('initName').value.trim().slice(0, 80);
     if (!name) return;
     const sy = +document.getElementById('initStartYear').value;
     const ey = +document.getElementById('initEndYear').value;
@@ -1237,7 +1239,7 @@ function selectColor(c) {
 }
 
 function saveTheme() {
-    const name = document.getElementById('themeName').value.trim();
+    const name = document.getElementById('themeName').value.trim().slice(0, 50);
     if (!name) return;
     if (editingThemeId) {
         const theme = state.themes.find(t => t.id === editingThemeId);
