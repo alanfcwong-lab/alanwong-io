@@ -415,7 +415,7 @@ tailwind.config = {
                 <div class="mb-6">
                     <h4 class="font-headline font-light text-on-surface text-base mb-2">Why the Smartest Path to AI Isn't Automation &mdash; It's People First</h4>
                     <p class="text-on-surface-variant font-light text-sm leading-relaxed mb-4">The 4-stage AI adoption framework we built at Sidekick. Based on real BPO operations data.</p>
-                    <a href="https://getmysidekicknow.com/insights/ai-adoption-framework" target="_blank" class="text-primary font-label text-xs font-medium tracking-[0.1em] uppercase hover:opacity-70 transition-opacity">
+                    <a href="https://getmysidekicknow.com/insights/ai-adoption-framework" target="_blank" rel="noopener noreferrer" class="text-primary font-label text-xs font-medium tracking-[0.1em] uppercase hover:opacity-70 transition-opacity">
                         Read article &rarr;
                     </a>
                 </div>
@@ -435,7 +435,7 @@ tailwind.config = {
         <a href="mailto:alanfcwong@gmail.com" class="px-10 py-4 bg-primary text-on-primary rounded-xl font-light tracking-wide shadow-[0_20px_40px_rgba(164,55,0,0.12)] hover:opacity-90 transition-all text-sm">
             Email Me
         </a>
-        <a href="https://linkedin.com/in/alan-wong-b4a9472b7" target="_blank" class="px-10 py-4 text-primary font-light tracking-wide hover:bg-primary-fixed/30 rounded-xl transition-all text-sm ghost-border">
+        <a href="https://linkedin.com/in/alan-wong-b4a9472b7" target="_blank" rel="noopener noreferrer" class="px-10 py-4 text-primary font-light tracking-wide hover:bg-primary-fixed/30 rounded-xl transition-all text-sm ghost-border">
             LinkedIn
         </a>
     </div>
@@ -449,7 +449,7 @@ tailwind.config = {
         <div class="font-body text-sm font-light text-secondary">&copy; 2026 Alan Wong. All rights reserved.</div>
         <div class="flex gap-10">
             <a class="font-body text-sm font-light text-secondary hover:text-primary transition-colors" href="mailto:alanfcwong@gmail.com">Email</a>
-            <a class="font-body text-sm font-light text-secondary hover:text-primary transition-colors" href="https://linkedin.com/in/alan-wong-b4a9472b7" target="_blank">LinkedIn</a>
+            <a class="font-body text-sm font-light text-secondary hover:text-primary transition-colors" href="https://linkedin.com/in/alan-wong-b4a9472b7" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
     </div>
 </footer>
@@ -660,7 +660,7 @@ function openPanel(p) {
     `;
 
     if (p.url) {
-        html += `<a href="${p.url}" target="_blank" class="inline-block px-8 py-3 bg-primary text-on-primary rounded-xl font-light tracking-wide text-sm shadow-[0_20px_40px_rgba(164,55,0,0.12)] hover:opacity-90 transition-all mb-10">Visit Project &rarr;</a>`;
+        html += `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-3 bg-primary text-on-primary rounded-xl font-light tracking-wide text-sm shadow-[0_20px_40px_rgba(164,55,0,0.12)] hover:opacity-90 transition-all mb-10">Visit Project &rarr;</a>`;
     }
 
     html += `

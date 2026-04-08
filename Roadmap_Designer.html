@@ -752,10 +752,10 @@ body {
             The <strong>YVR Operational Strategy &amp; Reporting</strong> preset is structured around the mandate of YVR's Director of Operational Strategy and Reporting — designing a comprehensive reporting ecosystem, advancing digital transformation, driving cross-functional alignment, and strengthening operational performance measurement. Initiative names reflect publicly known YVR priorities; impact and effort scores are illustrative, not sourced from YVR's internal planning.
             <br/><br/>
             References:
-            <a href="https://www.yvr.ca/en/about-yvr/leadership/annual-and-sustainability-report" target="_blank">YVR Annual Report</a> &middot;
-            <a href="https://news.yvr.ca/yvr-marks-record-breaking-year/" target="_blank">YVR 2025 Results</a> &middot;
-            <a href="https://blog.aci.aero/interviews-and-messages/top-5-priorities-for-airports-in-2026-by-justin-erbacci-aci-world-director-general/" target="_blank">ACI World 2026 Priorities</a> &middot;
-            <a href="https://www.iata.org/en/programs/ops-infra/airport-infrastructure/" target="_blank">IATA Airport Infrastructure</a>
+            <a href="https://www.yvr.ca/en/about-yvr/leadership/annual-and-sustainability-report" target="_blank" rel="noopener noreferrer">YVR Annual Report</a> &middot;
+            <a href="https://news.yvr.ca/yvr-marks-record-breaking-year/" target="_blank" rel="noopener noreferrer">YVR 2025 Results</a> &middot;
+            <a href="https://blog.aci.aero/interviews-and-messages/top-5-priorities-for-airports-in-2026-by-justin-erbacci-aci-world-director-general/" target="_blank" rel="noopener noreferrer">ACI World 2026 Priorities</a> &middot;
+            <a href="https://www.iata.org/en/programs/ops-infra/airport-infrastructure/" target="_blank" rel="noopener noreferrer">IATA Airport Infrastructure</a>
         </div>
     </div>
 
@@ -995,7 +995,7 @@ function renderThemes() {
                 <button class="theme-action-btn" onclick="openThemeModal(${t.id})" title="Edit">&#9998;</button>
                 <button class="theme-action-btn" onclick="removeTheme(${t.id})" title="Remove">&times;</button>
             </div>
-            <div class="theme-card-name">${t.name}</div>
+            <div class="theme-card-name">${escHtml(t.name)}</div>
             <div class="theme-card-count">${count} initiative${count !== 1 ? 's' : ''}</div>
         </div>`;
     }).join('') + `<button class="add-theme-btn" onclick="openThemeModal()">+ Add Theme</button>`;
@@ -1044,8 +1044,8 @@ function renderInitList() {
         return `
         <div class="init-item" onclick="openInitModal(${init.id})">
             <div class="dot" style="background:${theme.color}"></div>
-            <span class="name">${init.name}</span>
-            <span class="theme-tag" style="background:${theme.color}">${theme.name}</span>
+            <span class="name">${escHtml(init.name)}</span>
+            <span class="theme-tag" style="background:${theme.color}">${escHtml(theme.name)}</span>
             <span class="scores">I:${init.impact} E:${init.effort}</span>
             <button class="remove-btn" onclick="event.stopPropagation(); removeInit(${init.id})">&times;</button>
         </div>`;
@@ -1070,7 +1070,7 @@ function renderQuadrantSummary() {
     document.getElementById('quadrantSummary').innerHTML = Object.entries(quads).map(([q, d]) => `
         <div class="quad-summary-item">
             <div class="quad-label">${q} <span class="quad-count">(${d.items.length})</span></div>
-            <div class="quad-items">${d.items.length ? d.items.join(', ') : '—'}</div>
+            <div class="quad-items">${d.items.length ? d.items.map(n => escHtml(n)).join(', ') : '—'}</div>
         </div>
     `).join('');
 }
@@ -1158,7 +1158,7 @@ function closeInitModal() {
 function populateThemeSelect() {
     const sel = document.getElementById('initTheme');
     sel.innerHTML = state.themes.map(t =>
-        `<option value="${t.id}">${t.name}</option>`
+        `<option value="${t.id}">${escHtml(t.name)}</option>`
     ).join('');
 }
 
