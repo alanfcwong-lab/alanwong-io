@@ -1,0 +1,53 @@
+#home.showcase{padding-top:150px;min-height:100svh} .hero-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:80px;align-items:center;max-width:1150px;margin:auto} #home .hero-hook{text-align:left;font-size:clamp(44px,5.1vw,74px);margin:0 0 30px;line-height:1.07} .hero-description p{font-size:18px;line-height:1.7;color:#d2d4cd;} .hero-description{max-width:510px} #home .portrait-cutout{height:560px;max-width:100%;grid-row:auto;grid-column:auto} .hero-proof{max-width:1150px;margin:32px auto 40px;display:flex;gap:50px;justify-content:space-between;align-items:center;border-top:1px solid #626959;padding-top:24px;color:#d2d4cd;font-size:14px;line-height:1.6}.hero-proof p{max-width:760px}.hero-proof a{white-space:nowrap;text-decoration:underline;text-underline-offset:5px} #home .showcase-footer{margin-top:0}.hero-description .showcase-link{font-size:16px}
+@media(max-width:767px){#home.showcase{padding-top:120px}.hero-layout{grid-template-columns:1fr;gap:30px}#home .hero-hook{font-size:42px}.hero-description p{font-size:16px}#home .portrait-cutout{height:400px}.hero-proof{display:block;margin:30px auto}.hero-proof a{display:inline-block;margin-top:15px}}
+
+
+/* Preview: match the portrait shadows and dissolve the rectangular edges. */
+#home.showcase { background:#080f10; }
+body > nav { background:#080f10 !important; }
+#home .portrait-composite img {
+  mask-image:linear-gradient(to right,transparent 0%,#000 17%,#000 90%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 17%,#000 75%,transparent 100%);
+  mask-composite:intersect;
+  -webkit-mask-composite:source-in;
+}
+#home .portrait-motion { bottom:0; background:#080f10; border-color:#526b69;color:#d4e5df; }
+#home .hero-proof {border-color:#374946;}
+@media(min-width:768px) and (max-width:1050px){.hero-layout{gap:32px;grid-template-columns:1.2fr 1fr}#home .hero-hook{font-size:48px}#home .portrait-cutout{height:480px}}
+
+#home .portrait-original { overflow:visible; }
+#home .portrait-composite canvas { max-width:none; mask-image:none; }
+.hero-copy { position:relative; z-index:1; }
+/* Higgsfield preview uses the same edge treatment as the approved portrait. */
+#home .higgsfield-portrait video {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:hue-rotate(-25deg) saturate(.55);mask-image:linear-gradient(to right,transparent,#000 17%,#000 90%,transparent),linear-gradient(to bottom,transparent,#000 17%,#000 75%,transparent);mask-composite:intersect;-webkit-mask-composite:source-in;}
+#home .higgsfield-portrait.video-ready img {visibility:hidden;}
+#home .higgsfield-portrait video[hidden] {display:none;}
+@media(prefers-reduced-motion:reduce){#home .higgsfield-portrait.video-ready img {visibility:visible;}}
+@media(prefers-reduced-motion:reduce){#home .higgsfield-portrait video {display:none;}}
+#home.wide-video-hero .hero-layout {position:relative;min-height:600px;}
+#home.wide-video-hero .portrait-cutout {position:absolute;inset:0;width:100%;height:100%;max-width:none;}
+#home.wide-video-hero .portrait-composite {width:100%;height:100%;max-width:none;aspect-ratio:auto;}
+#home.wide-video-hero .portrait-composite img,#home.wide-video-hero video {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:hue-rotate(-25deg) saturate(.55);mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 78%,transparent);mask-composite:intersect;-webkit-mask-composite:source-in;}
+#home.wide-video-hero .hero-copy {z-index:2;background:radial-gradient(ellipse at 30% 50%,rgba(8,15,16,.92),rgba(8,15,16,.65) 60%,transparent 78%);}
+#home.wide-video-hero .wide-ready img {visibility:hidden;}
+#home.wide-video-hero video[hidden] {display:none;}
+@media(max-width:767px){#home.wide-video-hero .hero-layout {display:flex;flex-direction:column;min-height:0;}#home.wide-video-hero .portrait-cutout {position:relative;height:auto;aspect-ratio:16/9;}#home.wide-video-hero .hero-copy {background:none;}}
+@media(prefers-reduced-motion:reduce){#home.wide-video-hero video {display:none;}#home.wide-video-hero .wide-ready img {visibility:visible;}}
+#home.wide-video-hero .portrait-cutout {z-index:0;}
+#home.wide-video-hero .hero-copy {position:relative;z-index:3;}
+#home.wide-video-hero .portrait-composite img,#home.wide-video-hero video {object-fit:fill;mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.20) 5%,rgba(0,0,0,.25) 42%,#000 65%,#000 96%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 78%,transparent);}
+@media(max-width:767px){#home.wide-video-hero .portrait-composite img,#home.wide-video-hero video {mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 78%,transparent);}}
+/* Keep the wide field while restoring the original portrait scale and placement. */
+@media(min-width:768px){
+ #home.wide-video-hero .hero-layout {min-height:560px;}
+ #home.wide-video-hero .portrait-composite img,#home.wide-video-hero video {left:auto;right:0;top:145px;width:600px;max-width:100%;height:338px;object-fit:contain;}
+}
+@media(min-width:768px) and (max-width:1050px){
+ #home.wide-video-hero .portrait-composite img,#home.wide-video-hero video {width:520px;height:293px;top:150px;}
+}
+
+/* Regenerated composition keeps the person small within a full-width field. */
+#home.bright-video-hero .hero-layout {min-height:560px;}
+#home.bright-video-hero .portrait-composite img,#home.bright-video-hero video {left:0;right:0;top:-45px;width:100%;max-width:none;height:auto;aspect-ratio:16/9;object-fit:contain;filter:hue-rotate(-25deg) saturate(.8);mask-image:linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 88%,transparent);}
+#home.bright-video-hero .hero-copy {background:radial-gradient(ellipse at 35% 50%,rgba(8,15,16,.86),rgba(8,15,16,.65) 55%,transparent 76%);text-shadow:0 1px 12px #080f10;}
+@media(min-width:768px) and (max-width:1050px){#home.bright-video-hero .portrait-composite img,#home.bright-video-hero video {top:40px;}}
+@media(max-width:767px){#home.bright-video-hero .hero-layout{min-height:0;}#home.bright-video-hero .portrait-cutout{height:370px;aspect-ratio:auto;}#home.bright-video-hero .portrait-composite img,#home.bright-video-hero video{top:0;height:100%;aspect-ratio:auto;object-fit:cover;object-position:right center;}#home.bright-video-hero .hero-copy{background:none;}}
