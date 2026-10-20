@@ -492,7 +492,16 @@
 <main id="main-content" tabindex="-1" class="pt-24">
 
 <!-- Portrait-led personal showcase. -->
-<section id="home" class="showcase option-a" aria-labelledby="showcase-name"><div class="hero-layout"><div class="hero-copy"><h1 id="showcase-name" class="hero-hook">I run operations.<br>I build with AI.</h1><div class="hero-description">
+<section id="home" class="showcase option-a" aria-labelledby="showcase-name"><script>
+// Apply the selected hero layout before its contents can paint.
+(() => {
+    const preview = new URLSearchParams(location.search).get('preview');
+    const bright = !preview || preview === 'higgsfield-bright';
+    const hero = document.getElementById('home');
+    hero.classList.toggle('wide-video-hero', bright || preview === 'higgsfield-wide');
+    hero.classList.toggle('bright-video-hero', bright);
+})();
+</script><div class="hero-layout"><div class="hero-copy"><h1 id="showcase-name" class="hero-hook">I run operations.<br>I build with AI.</h1><div class="hero-description">
             <p>I bring operations experience and hands-on AI development together. I help businesses decide where AI is useful, then build the tools and workflows to put it to work.</p>
             <a class="showcase-link" href="#projects">View my work</a>
         </div></div><figure class="portrait-slot portrait-original portrait-cutout">
